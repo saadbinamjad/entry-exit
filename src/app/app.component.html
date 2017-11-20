@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Entry Exit Tracker</span>
+    <span class="example-spacer"></span>
+    <span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button (click)="clearStorage()" mat-menu-item>
+    <mat-icon>label important</mat-icon>
+    <span >Clear app </span>
+    </button>
+    </mat-menu>
+    </span>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ date | date }}</mat-card-title>
+  </mat-card-header>
+  <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+
+  <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile>
+      <mat-card-content>
+        <mat-card-subtitle>Entry</mat-card-subtitle>
+        <!--(ngModelChange)="currentDifferenceCheck()" -->
+        <ngb-timepicker [(ngModel)]="entryTime"></ngb-timepicker>
+        <hr>
+      </mat-card-content>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card-content>
+        <mat-card-subtitle>Exit</mat-card-subtitle>
+        <ngb-timepicker [(ngModel)]="exitTime"></ngb-timepicker>
+        <hr>
+
+      </mat-card-content>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="1" rows="1" rowHeight="1:1">
+    <!--<mat-card-subtitle *ngIf="currentDifference">Office Duration: {{ currentDifference }} </mat-card-subtitle>-->
+    <button mat-raised-button color="primary" (click)="saveTime()">Save</button>
+  </mat-grid-list>
+
+</mat-card>
+
+<mat-card class="example-card">
+  <mat-grid-list cols="1" rows="1" rowHeight="1:1">
+    <mat-grid-tile>
+      <mat-card-content>
+        <mat-card-title>Search </mat-card-title>
+
+        <ng-container *ngIf="searchedEntryTime || searchedExitTime">
+          <mat-card-subtitle>Entry at {{ searchedEntryTime }}</mat-card-subtitle>
+          <mat-card-subtitle>Exit at {{ searchedExitTime }} </mat-card-subtitle>
+          <mat-card-subtitle>Duration is {{ searchedDifference }} </mat-card-subtitle>
+
+        </ng-container>
+
+        <input [(ngModel)]="pickerDate" matInput [matDatepicker]="picker" placeholder=" Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <button mat-raised-button color="primary" (click)="searchTime()">Search</button>
+      </mat-card-content>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</mat-card>
