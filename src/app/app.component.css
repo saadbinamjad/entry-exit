@@ -1,3 +1,20 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+.circle-entry:before {
+  content: ' \25CF';
+  font-size: 200px;
+  color: lightgreen;
+  text-align: justify;
+}
+
+.circle-exit:before {
+  content: ' \25CF';
+  font-size: 200px;
+  color: palevioletred;
+  text-align: justify;
+}
+
+.title{
+  font-size: 50px;
+}

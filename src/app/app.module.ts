@@ -38,7 +38,7 @@ import { AppComponent } from './app.component';
     MatButtonModule,
     CookieModule.forRoot(),
     MatGridListModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    // AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]

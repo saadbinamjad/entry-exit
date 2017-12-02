@@ -21,6 +21,7 @@ export class AppComponent {
   searchedExitTime: any;
   searchedDifference: any;
   currentDifference: any;
+  saveMessage: string = null;
 
   ngOnInit() {
     const results = this.searchToday();
@@ -97,6 +98,43 @@ export class AppComponent {
     const t2 = exit​​​​​​​.split(':');
     const d1: any = Math.abs(t2[0] - t1[0]);
     const d2: any = Math.abs(t2[1] - t1[1]);
-    return `${this.pad(d1, 2)} : ${this.pad(d2, 2)}`;
+    return `${this.pad(d1 - 1, 2)} : ${this.pad(d2, 2)}`;
+  }
+
+  tappedEntry() {
+    let time = new Date();
+    let data = {};
+    data['day'] = this.date;
+    this.entryTime = {
+      hour: time.getHours(),
+      minute: time.getMinutes()
+    }
+    data['entryTime'] = JSON.stringify(this.entryTime);
+    data['exitTime'] = JSON.stringify(this.exitTime);
+    // this.currentDifferenceCheck();
+    this.setCookie(`${this.datePipe.transform(this.date, 'dd-M-yyyy')}`, JSON.stringify(data));
+    this.saveMessage = "Entry saved";
+    setTimeout(() => {
+      this.saveMessage = null;
+    }, 1500);
+  }
+
+  tappedExit() {
+    let time = new Date();
+    let data = {};
+    data['day'] = this.date;
+    data['entryTime'] = JSON.stringify(this.entryTime);
+    this.exitTime = {
+      hour: time.getHours(),
+      minute: time.getMinutes()
+    }
+    data['exitTime'] = JSON.stringify(this.exitTime);
+    // this.currentDifferenceCheck();
+    this.setCookie(`${this.datePipe.transform(this.date, 'dd-M-yyyy')}`, JSON.stringify(data));
+    this.saveMessage = "Exit saved";
+    setTimeout(() => {
+      this.saveMessage = null;
+    }, 1500);
+
   }
 }

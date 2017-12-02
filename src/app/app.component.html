@@ -21,14 +21,30 @@
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ date | date }}</mat-card-title>
+    <mat-card-title class="title">{{ date | date }}</mat-card-title>
   </mat-card-header>
   <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
 
   <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-card-header *ngIf="saveMessage">
+      <mat-card-title>{{ saveMessage }}</mat-card-title>
+    </mat-card-header>
     <mat-grid-tile>
       <mat-card-content>
-        <mat-card-subtitle>Entry</mat-card-subtitle>
+        <span (click)="tappedEntry()" class="circle-entry">Tap Entry</span>
+      </mat-card-content>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-content>
+        <span (click)="tappedExit()" class="circle-exit">Tap Exit</span>
+      </mat-card-content>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile>
+      <mat-card-content>
+        <mat-card-subtitle>Custom Entry</mat-card-subtitle>
         <!--(ngModelChange)="currentDifferenceCheck()" -->
         <ngb-timepicker [(ngModel)]="entryTime"></ngb-timepicker>
         <hr>
@@ -37,7 +53,7 @@
 
     <mat-grid-tile>
       <mat-card-content>
-        <mat-card-subtitle>Exit</mat-card-subtitle>
+        <mat-card-subtitle>Custom Exit</mat-card-subtitle>
         <ngb-timepicker [(ngModel)]="exitTime"></ngb-timepicker>
         <hr>
 
@@ -65,7 +81,7 @@
 
         </ng-container>
 
-        <input [(ngModel)]="pickerDate" matInput [matDatepicker]="picker" placeholder=" Date">
+        <input [(ngModel)]="pickerDate" (focus)="picker.open()" matInput [matDatepicker]="picker" placeholder=" Date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <button mat-raised-button color="primary" (click)="searchTime()">Search</button>
