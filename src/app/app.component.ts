@@ -36,7 +36,6 @@ export class AppComponent {
     data['day'] = this.date;
     data['entryTime'] = JSON.stringify(this.entryTime);
     data['exitTime'] = JSON.stringify(this.exitTime);
-    console.log(data);
     // this.currentDifferenceCheck();
     this.setCookie(`${this.datePipe.transform(this.date, 'dd-M-yyyy')}`, JSON.stringify(data));
   }
