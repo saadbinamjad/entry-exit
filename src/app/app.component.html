@@ -1,3 +1,6 @@
+<div>
+
+</div>
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span>Entry Exit Tracker</span>
@@ -30,35 +33,24 @@
       <mat-card-title>{{ saveMessage }}</mat-card-title>
     </mat-card-header>
     <mat-grid-tile>
-      <mat-card-content>
-        <span (click)="tappedEntry()" class="circle-entry">Tap Entry</span>
-      </mat-card-content>
+      <span (click)="tappedEntry()" class="circle-entry">Tap Entry</span>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card-content>
-        <span (click)="tappedExit()" class="circle-exit">Tap Exit</span>
-      </mat-card-content>
+      <span (click)="tappedExit()" class="circle-exit">Tap Exit</span>
     </mat-grid-tile>
-
   </mat-grid-list>
-  <mat-grid-list cols="2" rowHeight="1:1">
-    <mat-grid-tile>
-      <mat-card-content>
-        <mat-card-subtitle>Custom Entry</mat-card-subtitle>
-        <!--(ngModelChange)="currentDifferenceCheck()" -->
-        <ngb-timepicker [(ngModel)]="entryTime"></ngb-timepicker>
-        <hr>
-      </mat-card-content>
-    </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-card-content>
-        <mat-card-subtitle>Custom Exit</mat-card-subtitle>
-        <ngb-timepicker [(ngModel)]="exitTime"></ngb-timepicker>
-        <hr>
-
-      </mat-card-content>
-    </mat-grid-tile>
+  <mat-grid-list cols="1" rows="1" rowHeight="1:1">
+    <mat-card-content>
+      <span>Custom Entry:</span>
+      <ng-time-picker (notify)="onNotifyEntry($event)"></ng-time-picker>
+    </mat-card-content>
+  </mat-grid-list>
+  <mat-grid-list cols="1" rows="1" rowHeight="1:1">
+    <mat-card-content>
+      <span>Custom Exit:</span>
+      <ng-time-picker (notify)="onNotifyExit($event)"></ng-time-picker>
+    </mat-card-content>
   </mat-grid-list>
 
   <mat-grid-list cols="1" rows="1" rowHeight="1:1">
@@ -66,27 +58,21 @@
     <button mat-raised-button color="primary" (click)="saveTime()">Save</button>
   </mat-grid-list>
 
+<mat-grid-list cols="1" rows="1" rowHeight="1:1">
+  <mat-grid-tile>
+    <mat-card-content>
+      <mat-card-title>Search </mat-card-title>
+      <ng-container *ngIf="searchedEntryTime || searchedExitTime">
+        <mat-card-subtitle>Entry at {{ searchedEntryTime }}</mat-card-subtitle>
+        <mat-card-subtitle>Exit at {{ searchedExitTime }} </mat-card-subtitle>
+        <mat-card-subtitle>Duration is {{ searchedDifference }} </mat-card-subtitle>
+      </ng-container>
+      <input [(ngModel)]="pickerDate" (focus)="picker.open()" matInput [matDatepicker]="picker" placeholder=" Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <button mat-raised-button color="primary" (click)="searchTime()">Search</button>
+    </mat-card-content>
+  </mat-grid-tile>
+</mat-grid-list>
 </mat-card>
 
-<mat-card class="example-card">
-  <mat-grid-list cols="1" rows="1" rowHeight="1:1">
-    <mat-grid-tile>
-      <mat-card-content>
-        <mat-card-title>Search </mat-card-title>
-
-        <ng-container *ngIf="searchedEntryTime || searchedExitTime">
-          <mat-card-subtitle>Entry at {{ searchedEntryTime }}</mat-card-subtitle>
-          <mat-card-subtitle>Exit at {{ searchedExitTime }} </mat-card-subtitle>
-          <mat-card-subtitle>Duration is {{ searchedDifference }} </mat-card-subtitle>
-
-        </ng-container>
-
-        <input [(ngModel)]="pickerDate" (focus)="picker.open()" matInput [matDatepicker]="picker" placeholder=" Date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <button mat-raised-button color="primary" (click)="searchTime()">Search</button>
-      </mat-card-content>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-</mat-card>

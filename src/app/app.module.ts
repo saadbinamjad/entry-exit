@@ -14,6 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CookieModule } from 'ngx-cookie';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
+import { TimePickerModule } from 'ng-time-picker';
+
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -38,6 +40,7 @@ import { AppComponent } from './app.component';
     MatButtonModule,
     CookieModule.forRoot(),
     MatGridListModule,
+    TimePickerModule
     // AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],

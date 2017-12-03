@@ -25,7 +25,7 @@ export class AppComponent {
 
   ngOnInit() {
     const results = this.searchToday();
-    if (results) {
+    if (results && results['entry'] && results['exit']){
       this.entryTime = { hour: results['entry'].hour, minute: results['entry'].minute };
       this.exitTime = { hour: results['exit'].hour, minute: results['exit'].minute };
       this.currentDifferenceCheck();
@@ -36,6 +36,7 @@ export class AppComponent {
     data['day'] = this.date;
     data['entryTime'] = JSON.stringify(this.entryTime);
     data['exitTime'] = JSON.stringify(this.exitTime);
+    console.log(data);
     // this.currentDifferenceCheck();
     this.setCookie(`${this.datePipe.transform(this.date, 'dd-M-yyyy')}`, JSON.stringify(data));
   }
@@ -137,4 +138,25 @@ export class AppComponent {
     }, 1500);
 
   }
+
+  onNotifyEntry(data) {
+    if (data.hour && data.minute) {
+      if (data.time == 'PM') {
+        data.hour = Number(data.hour) + 12;
+      }
+      this.entryTime = { hour: data['hour'], minute: data['minute'] };
+    }
+  }
+
+  onNotifyExit(data) {
+    if (data.hour && data.minute) {
+      if (data.time == 'PM') {
+        data.hour = Number(data.hour) + 12;
+      }
+    }
+    this.exitTime = { hour: data['hour'], minute: data['minute'] };
+  }
+
 }
+
+
